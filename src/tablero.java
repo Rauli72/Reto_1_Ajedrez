@@ -140,3 +140,4 @@ public class tablero {
         return c >= 'A' && c <= 'H' && f >= '1' && f <= '8';
     }
 }
+
