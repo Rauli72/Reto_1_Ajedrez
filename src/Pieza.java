@@ -1,8 +1,8 @@
-public class pieza {
+public class Pieza {
     private String tipo;
     private String color;
 
-    public pieza(String tipo, String color){
+    public Pieza(String tipo, String color){
         this.color = color;
         this.tipo = tipo;
     }

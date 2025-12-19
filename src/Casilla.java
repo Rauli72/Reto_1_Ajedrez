@@ -1,9 +1,9 @@
-public class casilla {
+public class Casilla {
     private int fila;
     private int columna;
-    private pieza pieza;
+    private Pieza pieza;
 
-    public casilla(int fila, int columna){
+    public Casilla(int fila, int columna){
         this.fila = fila;
         this.columna = columna;
     }
@@ -11,10 +11,10 @@ public class casilla {
     public int getColumna() {return columna;}
     public int getFila() {return fila;}
 
-    public pieza getPieza() {
+    public Pieza getPieza() {
         return pieza;
     }
-    public void setPieza(pieza pieza) {
+    public void setPieza(Pieza pieza) {
         this.pieza = pieza;
     }
 }
