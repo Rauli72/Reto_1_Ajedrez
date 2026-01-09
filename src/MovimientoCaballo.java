@@ -1,9 +1,8 @@
 public class MovimientoCaballo {
-
-    public static boolean esValido(int fi_ini, int co_ini, int fi_fin, int co_fin) {
-        int df = Math.abs(fi_fin - fi_ini);
-        int dc = Math.abs(co_fin - co_ini);
+    public static boolean esValido(int filaInicio, int columnaInicio, int filaFin, int columnaFin) {
+        int filaDiferencia = Math.abs(filaFin - filaInicio);
+        int columnaDiferencia = Math.abs(columnaFin - columnaInicio);
         // Movimiento en L
-        return (df == 2 && dc == 1) || (df == 1 && dc == 2);
+        return (filaDiferencia == 2 && columnaDiferencia == 1) || (filaDiferencia == 1 && columnaDiferencia == 2);
     }
 }
