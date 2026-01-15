@@ -37,16 +37,16 @@ public class Jaque {
 
 
         // 3. Comprobar amenazas
-        for (int f = 0; f < 8; f++) {
-            for (int c = 0; c < 8; c++) {
+        for (int fila = 0; fila < 8; fila++) {
+            for (int col = 0; col < 8; col++) {
 
-                Casilla casilla = tablero.getCasilla(f, c);
+                Casilla casilla = tablero.getCasilla(fila, col);
 
                 if (casilla.getPieza() != null) {
-                    Pieza p = casilla.getPieza();
+                    Pieza pieza = casilla.getPieza();
 
-                    if (p.getColor().equals(enemigo)) {
-                        if (amenaza(p, f, c, reyFila, reyCol, tablero)) {
+                    if (pieza.getColor().equals(enemigo)) {
+                        if (amenazaJaque(pieza, fila, col, reyFila, reyCol, tablero)) {
                             return true;
                         }
                     }
@@ -58,39 +58,39 @@ public class Jaque {
     }
 
 
-    // ---- Comprobación de PeonAmenaza ----
-    private static boolean amenaza(Pieza p,
-                                   int fi, int ci,
-                                   int fr, int cr,
-                                   Tablero tablero) {
+    // ---- Comprobación de Amenaza ----
+    private static boolean amenazaJaque(Pieza pieza,
+                                        int fila_ini, int col_ini,
+                                        int fila_fin, int col_fin,
+                                        Tablero tablero) {
 
-        String tipo = p.getTipo();
+        String tipo = pieza.getTipo();
 
         if (tipo.equals("T")) {
-            return Movimiento.Torre(fi, ci, fr, cr)
-                    && Movimiento.caminoLibre(fi, ci, fr, cr, tablero);
+            return Movimiento.Torre(fila_ini, col_ini, fila_fin, col_fin)
+                    && Movimiento.caminoLibre(fila_ini, col_ini, fila_fin, col_fin, tablero);
         }
 
         if (tipo.equals("A")) {
-            return Movimiento.Alfil(fi, ci, fr, cr)
-                    && Movimiento.caminoLibre(fi, ci, fr, cr, tablero);
+            return Movimiento.Alfil(fila_ini, col_ini, fila_fin, col_fin)
+                    && Movimiento.caminoLibre(fila_ini, col_ini, fila_fin, col_fin, tablero);
         }
 
         if (tipo.equals("D")) {
-            return Movimiento.Reina(fi, ci, fr, cr)
-                    && Movimiento.caminoLibre(fi, ci, fr, cr, tablero);
+            return Movimiento.Reina(fila_ini, col_ini, fila_fin, col_fin)
+                    && Movimiento.caminoLibre(fila_ini, col_ini, fila_fin, col_fin, tablero);
         }
 
         if (tipo.equals("C")) {
-            return Movimiento.Caballo(fi, ci, fr, cr);
+            return Movimiento.Caballo(fila_ini, col_ini, fila_fin, col_fin);
         }
 
         if (tipo.equals("R")) {
-            return Movimiento.Rey(fi, ci, fr, cr);
+            return Movimiento.Rey(fila_ini, col_ini, fila_fin, col_fin);
         }
 
         if (tipo.equals("P")) {
-            return Movimiento.PeonAmenaza(fi, ci, fr, cr, p.getColor());
+            return Movimiento.PeonAmenaza(fila_ini, col_ini, fila_fin, col_fin, pieza.getColor());
         }
 
         return false;

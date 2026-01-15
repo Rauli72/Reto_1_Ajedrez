@@ -1,12 +1,9 @@
 import java.util.Scanner;
 
 public class Menu {
+    public static String colorJugador;
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        Tablero tablero = new Tablero();
-
+    public static void menuJuego(Scanner sc, Tablero tablero) {
         System.out.println("========================================");
         System.out.println("        CONFIGURACIÓN DEL TABLERO");
         System.out.println("========================================\n");
@@ -36,23 +33,32 @@ public class Menu {
         System.out.println("- Letras en mayúsculas son BLANCAS");
         System.out.println("- Letras en minúsculas son NEGRAS\n");
 
-        System.out.print("Blancas: ");
-        String blancas = sc.nextLine();
+        boolean todoCorrecto = false;
 
-        System.out.print("Negras: ");
-        String negras = sc.nextLine();
+        while (!todoCorrecto) {
+            System.out.print("Blancas: ");
+            String blancas = sc.nextLine();
 
-        if (!Tablero.cargarLinea(tablero, blancas, "B")) {
-            System.out.println("Error en la entrada de las BLANCAS.");
-            return;
+            System.out.print("Negras: ");
+            String negras = sc.nextLine();
 
-        } else if (!Tablero.cargarLinea(tablero, negras, "N")) {
-            System.out.println("Error en la entrada de las NEGRAS.");
-            return;
+            if (!Tablero.cargarLinea(tablero, blancas, "B")) {
+                System.out.println("Error en la entrada de las BLANCAS.");
+                continue;
+            }
 
-        } else if (!Tablero.esPiezaValida()) {
-            System.out.println("Error: hay piezas en la misma casilla.");
-            return;
+            if (!Tablero.cargarLinea(tablero, negras, "N")) {
+                System.out.println("Error en la entrada de las NEGRAS.");
+                continue;
+            }
+
+            if (!Tablero.esPiezaValida()) {
+                System.out.println("Error: hay piezas en la misma casilla.");
+                continue;
+            }
+
+            // Si llega aquí, TODO está bien
+            todoCorrecto = true;
         }
 
         boolean jaqueBlancas = Jaque.reyEnJaque(tablero, "B");
@@ -66,17 +72,78 @@ public class Menu {
         if (jaqueBlancas) {
             System.out.println("Las BLANCAS están en jaque y deben mover obligatoriamente.");
             tablero.dibujar();
+            colorJugador = "B";
         }
         else if (jaqueNegras) {
             System.out.println("Las NEGRAS están en jaque y deben mover obligatoriamente.");
             tablero.dibujar();
+            colorJugador = "N";
         }
         else {
             System.out.println("Ningún rey está en jaque.");
             System.out.println("El usuario decide qué bando mueve.");
             tablero.dibujar();
             System.out.println("\nEn cual bando quieres mover? [B/N]:");
+            do {
+                colorJugador = sc.nextLine();
+                colorJugador = colorJugador.toUpperCase();
+                if (!colorJugador.equals("B") && !colorJugador.equals("N")) {
+                    System.out.println("Introduce un color valido");
+                }
+            } while (!colorJugador.equals("B") && !colorJugador.equals("N"));
+        }
+
+        // ===== Juego con menú y turnos =====
+        boolean menuActivo = true;
+
+        while (menuActivo) {
+            System.out.println("\n===== MENÚ =====");
+            System.out.println("Turno actual: " + colorJugador);
+            System.out.println("1. Mostrar tablero");
+            System.out.println("2. Mover pieza (ej: f2f3)");
+            System.out.println("3. Reiniciar partida");
+            System.out.println("4. Salir");
+            System.out.print("Opción: ");
+
+            String opcion = sc.nextLine();
+            sc.nextLine();
+
+            switch (opcion) {
+
+                case "1":
+                    tablero.dibujar();
+                    break;
+
+                case "2":
+                    System.out.print("Introduce el movimiento a realizar: ");
+                    String movimiento = sc.nextLine();
+
+                    Funciones.movimientosJugador(tablero, movimiento);
+                    break;
+
+                case "3":
+                    System.out.println("Reiniciando partida...\n");
+                    menuActivo = false; // salir del menú
+                    break;
+
+                case "4":
+                    System.out.println("Saliendo del programa.");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Opción inválida.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Tablero tablero = new Tablero();
+        boolean partidaActiva = true;
+
+        while (partidaActiva){
+            menuJuego(sc, tablero);
         }
     }
 }
-

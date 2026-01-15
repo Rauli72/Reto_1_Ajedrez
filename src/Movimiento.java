@@ -24,7 +24,7 @@ public class Movimiento {
         // Torre + Alfil
         boolean linea = filaDiferencia == 0 || columnaDiferencia == 0;
         boolean diagonal = filaDiferencia == columnaDiferencia;
-        return linea || diagonal
+        return (linea || diagonal)
                 && (filaFin <= 8 && columnaFin <= 8);
     }
 
@@ -52,18 +52,55 @@ public class Movimiento {
                 && !(filaDiferencia == 0 && columnaDiferencia == 0);
     }
 
-    public static boolean PeonAmenaza(int fi, int ci, int fr, int cr, String color) {
+    public static boolean PeonMovimiento(int fi, int ci, int fr, int cr,
+                                         String color, Tablero tablero) {
 
+        // No se mueve en diagonal
+        if (ci != cr) return false;
+
+        // BLANCAS (suben)
         if (color.equals("B")) {
-            if (fr == fi - 1 && (cr == ci - 1 || cr == ci + 1)) {
+
+            // 1 paso
+            if (fr == fi - 1 &&
+                    tablero.getCasilla(fr, cr).getPieza() == null) {
+                return true;
+            }
+
+            // 2 pasos desde fila 2 (fila interna 6)
+            if (fi == 6 && fr == 4 &&
+                    tablero.getCasilla(5, cr).getPieza() == null &&
+                    tablero.getCasilla(4, cr).getPieza() == null) {
                 return true;
             }
         }
 
+        // NEGRAS (bajan)
         if (color.equals("N")) {
-            if (fr == fi + 1 && (cr == ci - 1 || cr == ci + 1)) {
+
+            if (fr == fi + 1 &&
+                    tablero.getCasilla(fr, cr).getPieza() == null) {
                 return true;
             }
+
+            if (fi == 1 && fr == 3 &&
+                    tablero.getCasilla(2, cr).getPieza() == null &&
+                    tablero.getCasilla(3, cr).getPieza() == null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean PeonAmenaza(int fi, int ci, int fr, int cr, String color) {
+
+        if (color.equals("B")) {
+            return fr == fi - 1 && (cr == ci - 1 || cr == ci + 1);
+        }
+
+        if (color.equals("N")) {
+            return fr == fi + 1 && (cr == ci - 1 || cr == ci + 1);
         }
 
         return false;
