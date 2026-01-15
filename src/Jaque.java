@@ -90,7 +90,7 @@ public class Jaque {
         }
 
         if (tipo.equals("P")) {
-            return Movimiento.PeonAtkLateral(fila_ini, col_ini, fila_fin, col_fin, pieza.getColor());
+            return Movimiento.PeonAmenaza(fila_ini, col_ini, fila_fin, col_fin, pieza.getColor());
         }
 
         return false;

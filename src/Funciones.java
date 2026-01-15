@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Funciones {
 
     // ===== MOVIMIENTOS DE LAS PIEZAS =====
@@ -34,7 +36,7 @@ public class Funciones {
             }
         }
 
-        // 🔴 AÑADIDO: detectar si hay origen explícito
+        // Detectar si hay origen explícito
         boolean origenExplicito = (origen != null);
 
         int fila_destino = 8 - Character.getNumericValue(destino.charAt(1));
@@ -60,17 +62,19 @@ public class Funciones {
                 return;
             }
 
-            // 🔴 AÑADIDO: validación correcta del movimiento
+            // Malidación correcta del movimiento
             if (!puedeMover(p, fila_ini, col_ini, fila_destino, col_destino, tablero)) {
                 System.out.println("Movimiento ilegal: la pieza no puede moverse así.");
                 return;
             }
 
-            // 🔴 AÑADIDO: mover la pieza
+            // Mover la pieza
             tablero.getCasilla(fila_destino, col_destino).setPieza(p);
             origenCasilla.setPieza(null);
 
             System.out.println("Movimiento realizado correctamente.");
+            // Volver a dibujar el tablero tras el movimiento.
+            tablero.dibujar();
             return;
         }
 
@@ -105,8 +109,15 @@ public class Funciones {
         }
 
         if (encontradas > 1) {
-            System.out.println("Movimiento ambiguo: especifica origen.");
-            return;
+
+            System.out.println("Movimiento ambiguo.");
+            System.out.println("Especifica la pieza indicando origen y destino (ej: Te7e8):");
+
+            Scanner sc = new Scanner(System.in);
+            String Reintentar_mov = sc.nextLine();
+
+            //Reintentar movimiento
+            Funciones.movimientosJugador(tablero, Reintentar_mov);
         }
 
         // mover pieza única
@@ -114,6 +125,7 @@ public class Funciones {
         tablero.getCasilla(fiVal, ciVal).setPieza(null);
 
         System.out.println("Movimiento realizado correctamente.");
+        tablero.dibujar();
     }
 
 
@@ -154,8 +166,8 @@ public class Funciones {
             }
 
             // ataque diagonal
-            return Movimiento.PeonAtkLateral(fila_ini, col_ini, fila_fin,
-                    col_fin, pieza.getColor());
+            return Movimiento.PeonMovimiento(fila_ini, col_ini, fila_fin,
+                    col_fin, pieza.getColor(), tablero);
         }
 
         return false;
