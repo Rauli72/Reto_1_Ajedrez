@@ -1,8 +1,8 @@
 public class Tablero {
 
     private Casilla[][] Casillas;
-    private static String[] piBlancas;
-    private static String[] piNegras;
+    public static String[] piBlancas;
+    public static String[] piNegras;
 
     // ANSI
     private static final String RESET = "\u001B[0m";

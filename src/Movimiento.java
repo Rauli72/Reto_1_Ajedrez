@@ -24,7 +24,7 @@ public class Movimiento {
         // Torre + Alfil
         boolean linea = filaDiferencia == 0 || columnaDiferencia == 0;
         boolean diagonal = filaDiferencia == columnaDiferencia;
-        return linea || diagonal
+        return (linea || diagonal)
                 && (filaFin <= 8 && columnaFin <= 8);
     }
 
@@ -52,7 +52,7 @@ public class Movimiento {
                 && !(filaDiferencia == 0 && columnaDiferencia == 0);
     }
 
-    public static boolean PeonAmenaza(int fi, int ci, int fr, int cr, String color) {
+    public static boolean PeonAtkLateral(int fi, int ci, int fr, int cr, String color) {
 
         if (color.equals("B")) {
             if (fr == fi - 1 && (cr == ci - 1 || cr == ci + 1)) {

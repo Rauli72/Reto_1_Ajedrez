@@ -1,6 +1,8 @@
-import java.util.Scanner;
+﻿import java.util.Scanner;
 
 public class Menu {
+    public static String colorJugador;
+    public static String piezaMovida;
 
     public static void main(String[] args) {
 
@@ -66,17 +68,34 @@ public class Menu {
         if (jaqueBlancas) {
             System.out.println("Las BLANCAS están en jaque y deben mover obligatoriamente.");
             tablero.dibujar();
+            colorJugador = "B";
         }
         else if (jaqueNegras) {
             System.out.println("Las NEGRAS están en jaque y deben mover obligatoriamente.");
             tablero.dibujar();
+            colorJugador = "N";
         }
         else {
             System.out.println("Ningún rey está en jaque.");
             System.out.println("El usuario decide qué bando mueve.");
             tablero.dibujar();
             System.out.println("\nEn cual bando quieres mover? [B/N]:");
+            String color = "";
+            do {
+                colorJugador = sc.nextLine();
+                colorJugador = colorJugador.toUpperCase();
+                if (!colorJugador.equals("B") && !colorJugador.equals("N")) {
+                    System.out.println("Introduce un color valido");
+                }
+            } while (!colorJugador.equals("B") && !colorJugador.equals("N"));
         }
+
+        System.out.println("Introduce el movimiento a realizar: ");
+        String movimiento = sc.nextLine();
+
+        Funciones.movimientosJugador(tablero, movimiento);
+
+        // Volver a dibujar el tablero tras el movimiento.
+        tablero.dibujar();
     }
 }
-
