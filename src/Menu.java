@@ -114,22 +114,10 @@ public class Menu {
                     System.out.print("Ingrese movimiento (ej: e2 e4): ");
                     String movimiento = sc.nextLine();
 
-                    // Procesar el movimiento
                     if (procesarMovimiento(movimiento, tablero, turno)) {
-                        // Mover la pieza físicamente en el tablero
-                        String[] partes = movimiento.split(" ");
-                        int colInicio = Character.toUpperCase(partes[0].charAt(0)) - 'A';
-                        int filaInicio = 8 - Character.getNumericValue(partes[0].charAt(1));
-                        int colFin = Character.toUpperCase(partes[1].charAt(0)) - 'A';
-                        int filaFin = 8 - Character.getNumericValue(partes[1].charAt(1));
+                        // Movimiento válido ya aplicado dentro de procesarMovimiento
 
-                        Pieza pieza = tablero.getCasilla(filaInicio, colInicio).getPieza();
-
-                        // Movimiento definitivo
-                        tablero.getCasilla(filaFin, colFin).setPieza(pieza);
-                        tablero.getCasilla(filaInicio, colInicio).setPieza(null);
-
-                        // Mostrar el tablero después del movimiento
+                        // Mostrar tablero actualizado
                         tablero.dibujar();
 
                         // Cambiar turno
@@ -138,6 +126,7 @@ public class Menu {
                         // Mostrar si hay jaque después del movimiento
                         boolean jaqueBlancas = Jaque.reyEnJaque(tablero, "B");
                         boolean jaqueNegras = Jaque.reyEnJaque(tablero, "N");
+
                         if (jaqueBlancas) System.out.println("⚠️  Las BLANCAS están en jaque.");
                         else if (jaqueNegras) System.out.println("⚠️  Las NEGRAS están en jaque.");
                         else System.out.println("✔️  Ningún rey está en jaque.");
@@ -147,11 +136,10 @@ public class Menu {
                     break;
 
                 case "4":
-                    // 1️⃣ Reiniciar tablero
-                    menuActivo = false;
+                    // Reiniciar tablero
                     tablero = new Tablero();
 
-                    // 2️⃣ Recargar posiciones iniciales de blancas y negras
+                    // Recargar posiciones iniciales
                     if (!Tablero.cargarLinea(tablero, entradaBlancas, "B")) {
                         System.out.println("❌ Error al recargar las piezas blancas.");
                         break;
@@ -161,19 +149,17 @@ public class Menu {
                         break;
                     }
 
-                    // 3️⃣ Limpiar historial de movimientos
+                    // Limpiar historial
                     historial.clear();
 
-                    // 4️⃣ Reiniciar turno
+                    // Reiniciar turno
                     turno = "B";
 
-                    // 5️⃣ Mostrar mensaje de confirmación
+                    // Confirmación
                     System.out.println("✔️ Partida reiniciada.");
 
-                    // 6️⃣ Mostrar tablero actualizado
+                    // Mostrar tablero y jaque
                     tablero.dibujar();
-
-                    // 7️⃣ Comprobar jaque inicial
                     boolean jaqueBlancas = Jaque.reyEnJaque(tablero, "B");
                     boolean jaqueNegras = Jaque.reyEnJaque(tablero, "N");
 
@@ -182,6 +168,7 @@ public class Menu {
                     else System.out.println("✔️  Ningún rey está en jaque.");
 
                     break;
+
 
                 case "5":
                     System.out.println("Saliendo del programa...");
