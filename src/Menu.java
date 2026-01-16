@@ -106,7 +106,6 @@ public class Menu {
             System.out.print("Opción: ");
 
             String opcion = sc.nextLine();
-            sc.nextLine();
 
             switch (opcion) {
 
