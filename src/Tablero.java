@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Tablero {
 
     private Casilla[][] Casillas;
@@ -37,6 +39,28 @@ public class Tablero {
             peonesNegros = 0;
         }
     }
+
+    // ===== REINICIAR TABLERO COMPLETO =====
+    public void resetTablero() {
+
+        // Vaciar casillas
+        for (int f = 0; f < 8; f++) {
+            for (int c = 0; c < 8; c++) {
+                Casillas[f][c].setPieza(null);
+            }
+        }
+
+        // Reiniciar arrays
+        piBlancas = null;
+        piNegras = null;
+
+        // Reiniciar contadores
+        reyesBlancos = 0;
+        reyesNegros = 0;
+        peonesBlancos = 0;
+        peonesNegros = 0;
+    }
+
 
     // ===== COLOCAR PIEZA =====
     public void colocarPieza(String tipo, String color, String pos) {
