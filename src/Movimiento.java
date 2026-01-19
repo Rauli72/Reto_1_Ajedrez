@@ -28,12 +28,13 @@ public class Movimiento {
                 && (filaFin <= 8 && columnaFin <= 8);
     }
 
-    public static boolean Rey(int filaInicio, int columnaInicio, int filaFin, int columnaFin) {
-        int filaDiferencia = Math.abs(filaFin - filaInicio);
-        int columnaDiferencia = Math.abs(columnaFin - columnaInicio);
-        return (filaFin <= 8 && columnaFin <= 8)
-                && filaDiferencia <= 1 || columnaDiferencia <= 1
-                && !(filaDiferencia == 0 && columnaDiferencia == 0);
+    public static boolean Rey(int filaInicio, int columnaInicio,
+                              int filaFin, int columnaFin) {
+
+        int dif_fila = Math.abs(filaFin - filaInicio);
+        int dif_col = Math.abs(columnaFin - columnaInicio);
+
+        return Math.max(dif_fila, dif_col) == 1;
     }
 
     public static boolean Torre(int filaInicio, int columnaInicio, int filaFin, int columnaFin) {
