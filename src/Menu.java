@@ -137,7 +137,6 @@ public class Menu {
 
                     if (Funciones.movIlegal) {
                         System.out.println("La partida se ha acabado...");
-                        partidaActiva = false;
                         return;
                     }
 
