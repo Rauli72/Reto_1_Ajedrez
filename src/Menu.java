@@ -22,8 +22,8 @@ public class Menu {
         System.out.println("(Peón no lleva letra)\n");
 
         System.out.println("EJEMPLO FORMATO DE ENTRADA:");
-        System.out.println("Blancas: Rg1, Tf1, h2, g2, f2, d4, e4, a4, b3, c2, Ab2, Ta1");
-        System.out.println("Negras: Rc8, Td8, a7, b7, c7, Ae6, d5, e5, f7, g6, Ag7, h7, Th8\n");
+        System.out.println("Blancas: Rg1, Ta1, Tf1, a2, f2, g2, h2, Ad3, Cf3, c4, d4, Ag5");
+        System.out.println("Negras: Ta8, Ac8, Re8, Af8, Th8, a7, b7, Cd7, g7, Db6, c6, e6, h6\n");
 
         System.out.println("REGLAS IMPORTANTES:");
         System.out.println("- No se permiten espacios dentro de cada pieza");
